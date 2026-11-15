@@ -1,0 +1,26 @@
+{
+  "canvas": "1280x720",
+  "fps": 30,
+  "clips": [
+    {"path": "C:/videos/a.mp4", "trim": [2.0, 10.0], "volume": 0},
+    {"path": "C:/videos/b.mp4", "trim": [0.8, 10.0], "speed": 1.4}
+  ],
+  "transitions": [
+    {"name": "推近", "at": 0, "dur": 1.0}
+  ],
+  "filters": [
+    {"name": "电影增质", "effect_id": "7430733313419005238", "value": 1.0}
+  ],
+  "overlays": [
+    {"path": "C:/videos/b.mp4", "start": 7.2, "dur": 0.8, "trim": [0.0, 0.8], "alpha_in": 0.8},
+    {"path": "C:/videos/poster.jpg", "start": 2.0, "dur": 3.0,
+     "scale": 0.3, "x": 0.45, "y": 0.55, "alpha_in": 0.4, "alpha_out": 0.4}
+  ],
+  "texts": [
+    {"content": "标题字", "start": 0.3, "dur": 3.2, "size": 5.2, "y": 0.82}
+  ],
+  "audio": [
+    {"path": "C:/videos/a.mp4", "trim": [2.0, 10.0], "start": 0, "dur": 8.0,
+     "volume": 1.0, "fade_out": 0.9}
+  ]
+}

@@ -1,0 +1,54 @@
+jy-draftc - read, convert and export JianYing drafts without opening JianYing
+
+usage: jy-draftc <command> [options]
+
+commands:
+  -dc, --decrypt <path>...      decrypt draft content files (dir -> dir-plain)
+  -ec, --encrypt <path>...      encrypt plain draft back to JianYing format
+  -ex, --export  <path>...      export MP4 (batch: several drafts in parallel)
+  -ug, --upgrade <path>...      upgrade draft struct version (-t target)
+  -dg, --downgrade <path>...    downgrade draft struct version (-t required)
+  -c,  --check   [draft]        self check: exports, abi, crypto round-trip, draft io
+  -v,  --version                version and binding info
+  -h,  --help                   this help
+
+options:
+  -o, --out <path>        output path; must be a directory when several inputs are given
+  -t, --to <version>      struct version 179.0.0 or jianying version 11.4.2
+                          repeatable for -ug/-dg batches, the last one is reused
+      --jy-dir <dir>      JianYing install dir containing videoeditor.dll
+      --size 720x1280     export size (default: draft canvas); --width/--height aliases
+      --fps N             default 30
+      --bitrate N         12M / 8000K / 12000000
+      --codec <h264|hevc|N>
+      --quality N --color-space N --mp4 N --hard-encode N
+      --timeout N         render timeout seconds, default 900; alias --wait
+  -j, --jobs [auto|N]     export parallelism, auto (default) grows while resources allow
+      --max-jobs N        cap for auto parallelism, default: physical cores
+      --mem-reserve N     free MB kept for the system, default 1024
+      --cpu-target N      auto mode starts another draft below this cpu load, default 90
+      --stagger N         delay between starts in ms, default 300
+      --log-dir <dir>     keep the per-draft child log in this directory
+      --order <size|name> batch order, default size (largest first)
+      --only <glob>       -ug/-dg: convert only matching content files (repeatable)
+      --skip <glob>       -ug/-dg: skip matching content files (repeatable)
+      --plain             -ug/-dg: write plain content files
+      --encrypted         -ug/-dg: write encrypted content files
+  -f, --force             overwrite existing output
+      --dry-run           plan only, engine not loaded
+  -q, --quiet             hide the engine's own console log (default when stdout is a console)
+      --debug             verbose trace log
+  -vv, --verbose          engine log
+
+several inputs: commands take any number of paths (space separated or comma separated);
+  each path is a draft directory or a draft file; a folder that holds several drafts is
+  expanded to the drafts inside it. -o is then a root directory: <out>\<name>.mp4 for -ex
+  and <out>\<name>-<version> for -ug/-dg; without -o each result is written next to its
+  input as <name>.mp4 or <name>-<version>.
+
+.env next to the exe (empty values ignored):
+  JY_INSTALL_DIR=...  WIDTH= HEIGHT= FPS= BITRATE= CODEC= QUALITY= COLOR_SPACE= MP4_FLAG= HARD_ENCODE= WAIT= VERBOSE=
+
+exit codes: 0 ok / 1 other / 2 export / 8 dll / 9 entry / 10 parse / 11 crypto /
+            12 struct / 14 dir or version / 15 direction / 16 downgrade / 17 upgrade /
+            18 meta / 64 usage

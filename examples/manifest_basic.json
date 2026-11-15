@@ -1,0 +1,15 @@
+{
+  "canvas": "1280x720",
+  "fps": 30,
+  "clips": [
+    {"path": "C:/videos/a.mp4"},
+    {"path": "C:/videos/b.mp4", "speed": 2.0}
+  ],
+  "texts": [
+    {"content": "从零建稿", "start": 0.3, "dur": 3.0, "size": 8.0, "y": 0.8}
+  ],
+  "audio": [
+    {"path": "C:/videos/bgm.wav", "start": 0.0, "dur": 6.0, "volume": 0.6,
+     "fade_in": 1.0, "fade_out": 1.0}
+  ]
+}
